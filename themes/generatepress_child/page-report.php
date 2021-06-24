@@ -57,11 +57,9 @@ get_header(); ?>
             <div class="entry-content">
                 <div class="jumbotron">
                     <h1 class="display-4">Report Page is underconstruction</h1>
-                    <p class="lead">Make Table that have list of something, read it again</p>
+                    <p class="lead"></p>
                     <hr class="my-4">
-                    <p>Table, that containing, all of the proposal submitted, maybe , confirmed it again with client</p>
                     <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
                     </p>
                 </div>
             </div>

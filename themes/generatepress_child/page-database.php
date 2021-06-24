@@ -55,15 +55,22 @@ get_header(); ?>
                 ?>
             </header>
             <div class="entry-content">
-                <div class="jumbotron">
-                    <h1 class="display-4">Database Page is underconstruction</h1>
-                    <p class="lead">Is this need table ? or i don't know, managing file uploaded ????</p>
-                    <hr class="my-4">
-                    <p>Table, that containing, all of the proposal submitted, maybe , confirmed it again with client</p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                    </p>
-                </div>
+                <ul>
+                    <?php
+                    $all_proposal = new WP_Query([
+                        'posts_per_page' => -1,
+                        'post_type' => 'proposal'
+                    ]);
+                    if ($all_proposal->have_posts()) { //check apakah ada proposal yang di upload
+                        while ($all_proposal->have_posts()) { // loop proposal
+                            $all_proposal->the_post();
+                    ?>
+                            <li><?php the_title(); ?> - <?php the_author(); ?> / <?php the_meta() ?> | time : <?php the_time('F j, Y') ?></li>
+                            <?php the_shortlink($text = 'Lihat Proposal') ?>
+                    <?php    } //endloop
+                    }
+                    ?>
+                </ul>
             </div>
         </div>
         <?php

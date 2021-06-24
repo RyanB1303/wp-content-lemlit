@@ -30,6 +30,7 @@ get_header(); ?>
 
         ?>
         <div class="inside-article">
+            <div class="alert alert-danger">Semua User Baru (guest / subscriber)</div>
 
             <header class="entry-header">
                 <?php
@@ -55,11 +56,11 @@ get_header(); ?>
                 ?>
             </header>
             <div class="entry-content">
+
                 <form>
                     <div class="form-group row">
                         <label for="nik" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            User baru login akan jadi subscriber terlebih dahulu, di halaman ini admin menggantinya dengan role yang ditentukan
                             <select name="nama" id="nama" class="form-control">
                                 <?php
                                 $users = get_users(['role' => ['subscriber']]); //later give role that no-role, or subscriber
@@ -76,11 +77,11 @@ get_header(); ?>
                         <div class="col-sm-10">
                             <select name="role" id="role">
                                 <?php
-                                $special_role = ['Administrator', 'Editor', 'Contributor', 'Subscriber'];
+                                $special_role = ['Author', 'Editor'];
                                 $roles = wp_roles()->role_names;
                                 // var_dump($roles);
                                 foreach ($roles as $role) {
-                                    if (!in_array($role, $special_role))
+                                    if (in_array($role, $special_role))
                                         echo '<option>' . $role . '</option>';
                                 }
 
