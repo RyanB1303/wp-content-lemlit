@@ -66,24 +66,21 @@ get_header(); ?>
             <label for="password" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-10">
               <input type="password" class="form-control" id="password" placeholder="********">
-              <a href="#">Ganti Password</a>
             </div>
           </div>
           <div class="form-group row">
             <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
             <div class="col-sm-10">
-              <select name="jabatan" id="jabatan">
-                <option value="admin">Admin</option>
-                <option value="reviewer">Reviewer</option>
-                <option value="monev">Monev</option>
+              <select name="jabatan" id="jabatan" class="form-control" disabled>
+                <option value="reviewer" selected>Dosen</option>
               </select>
             </div>
           </div>
           <div class="form-group row">
             <label for="prodi" class="col-sm-2 col-form-label">Program Studi</label>
             <div class="col-sm-10">
-              <select name="prodi" id="prodi">
-                <option value="fti">FTI</option>
+              <select name="prodi" id="prodi" class="form-control">
+                <option value="FTI" selected>FTI</option>
                 <option value="FH">FH</option>
                 <option value="FKG">FKG</option>
               </select>

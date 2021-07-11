@@ -55,30 +55,26 @@ get_header(); ?>
         ?>
       </header>
       <div class="entry-content table-responsive">
-        <table class="table table-bordered proposal">
+        <table class="table table-bordered penelitian-terakhir">
           <thead>
             <tr>
               <th>#</th>
+              <th>NIP</th>
               <th>Nama Ketua</th>
               <th>Prodi</th>
               <th>Kategori</th>
               <th>Judul</th>
-              <th>Status Pencairan Dana</th>
-              <th>Status Proposal</th>
-              <th>Data Dukung SK Rektor</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
+              <td>0123456789</td>
               <td>Pri Agung Rakhmanto</td>
               <td>S1 - SI</td>
               <td>Kategori IV</td>
               <td>Effect of Sand Grain Size on Spontaneous Imbibiton of Surfactant Solution</td>
-              <td>Tahap I</td>
-              <td>LPJ Tahap I</td>
-              <td>30 Desember 2020</td>
               <td>
                 <div class="flex">
                   <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>

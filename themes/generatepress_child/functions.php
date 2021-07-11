@@ -10,6 +10,7 @@ function get_bootstrap_css_js()
 {
   wp_enqueue_style('bootstrap-css', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css');
   wp_enqueue_script('bootstrap-js', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array('jquery'));
+  wp_enqueue_style('font-awesome-css', get_template_directory_uri() . '/font-awesome-4.7.0/css/font-awesome.min.css');
 }
 
 add_action('back_button', 'wpse221640_back_button');

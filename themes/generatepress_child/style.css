@@ -1,8 +1,8 @@
 /*
  Theme Name:   GeneratePress Child
  Theme URI:    https://generatepress.com
- Description:  Default GeneratePress child theme
- Author:       Tom Usborne
+ Description:  GeneratePress Lemlit Trisakti
+ Author:       Tom Usborne | editted by ( RyanB1303 )
  Author URI:   https://tomusborne.com
  Template:     generatepress
  Version:      0.1
@@ -14,7 +14,7 @@ html {
 body {
   position: relative;
   margin: 0;
-  padding-bottom: 6rem;
+  padding-bottom: 5rem;
   min-height: 100%;
 }
 footer {
@@ -22,5 +22,16 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 0.5rem;
+  padding: 0.1rem;
+}
+table {
+  font-size: smaller;
+  padding: 1rem;
+}
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+td {
+  text-align: center;
 }

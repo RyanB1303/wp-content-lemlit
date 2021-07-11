@@ -30,8 +30,6 @@ get_header(); ?>
 
         ?>
         <div class="inside-article">
-            <div class="alert alert-danger">Semua User Baru (guest / subscriber)</div>
-
             <header class="entry-header">
                 <?php
                 /**
@@ -55,41 +53,37 @@ get_header(); ?>
                 do_action('generate_after_page_title');
                 ?>
             </header>
-            <div class="entry-content">
-
-                <form>
-                    <div class="form-group row">
-                        <label for="nik" class="col-sm-2 col-form-label">Nama</label>
-                        <div class="col-sm-10">
-                            <select name="nama" id="nama" class="form-control">
-                                <?php
-                                $users = get_users(['role' => ['subscriber']]); //later give role that no-role, or subscriber
-                                // var_dump($users);
-                                foreach ($users as $user) {
-                                    echo '<option>' . $user->display_name . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="jabatan" class="col-sm-2 col-form-label">Role</label>
-                        <div class="col-sm-10">
-                            <select name="role" id="role">
-                                <?php
-                                $special_role = ['Author', 'Editor'];
-                                $roles = wp_roles()->role_names;
-                                // var_dump($roles);
-                                foreach ($roles as $role) {
-                                    if (in_array($role, $special_role))
-                                        echo '<option>' . $role . '</option>';
-                                }
-
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </form>
+            <div class="entry-content table-responsive">
+                <table class="table table-bordered role">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NIP</th>
+                            <th>Nama</th>
+                            <th>Prodi</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>012345678</td>
+                            <td>Pri Agung Rakhmanto</td>
+                            <td>S1 - SI</td>
+                            <td>Peneliti</td>
+                            <td>Request</td>
+                            <td>
+                                <div class="flex">
+                                    <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <?php
