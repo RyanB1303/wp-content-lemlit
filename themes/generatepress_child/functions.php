@@ -6,22 +6,32 @@
  * Add your custom PHP in this file.
  * Only edit this file if you have direct access to it on your server (to fix errors if they happen).
  */
-function get_bootstrap_css_js()
-{
-  wp_enqueue_style('bootstrap-css', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css');
-  wp_enqueue_script('bootstrap-js', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array('jquery'));
-  wp_enqueue_style('font-awesome-css', get_template_directory_uri() . '/font-awesome-4.7.0/css/font-awesome.min.css');
+function get_bootstrap_css_js() {
+	wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css' );
+	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array( 'jquery' ) );
+	wp_enqueue_style( 'font-awesome-css', get_template_directory_uri() . '/font-awesome-4.7.0/css/font-awesome.min.css' );
 }
+/**
+ * Function wpse221640_back_buttonn
+ *
+ * @return void
+ */
+function wpse221640_back_button() {
 
-add_action('back_button', 'wpse221640_back_button');
-function wpse221640_back_button()
-{
-  if (wp_get_referer()) {
-    $back_text = __('&laquo; Back');
-    $button    = "\n<button id='back-button' class='btn btn-secondary back-button mb-3' onclick='javascript:history.back()'>$back_text</button>";
-    echo ($button);
-  }
+	if ( wp_get_referer() ) {
+		$back_text = __( '&laquo; Back' );
+		$button    = "\n<button id='back-button' class='btn btn-secondary back-button mb-3' onclick='javascript:history.back()'>$back_text</button>";
+		echo esc_html( $button );
+	}
 }
-
-
-add_action('wp_enqueue_scripts', 'get_bootstrap_css_js');
+/**
+ * Function do_after_register
+ *
+ * @return void
+ */
+function do_after_register() {
+	wp_redirect( home_url() );
+}
+add_action( 'user_register', 'do_after_register' );
+add_action( 'back_button', 'wpse221640_back_button' );
+add_action( 'wp_enqueue_scripts', 'get_bootstrap_css_js' );
