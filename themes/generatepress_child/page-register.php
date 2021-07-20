@@ -123,7 +123,7 @@ if ( $user_ID ) {
 					<div class="form-group row">
 						<label for="fakultas" class="col-sm-2 col-form-label">Fakultas</label>
 						<div class="col-sm-10">
-							<select name="fakultas" id="fakultas" class="form-control">
+							<select name="fakultas" id="fakultas" class="form-control" required>
 								<option value="" selected disabled>Pilih Fakultas</option>
 								<option value="FTI">FTI</option>
 								<option value="FH">FH</option>
@@ -134,20 +134,20 @@ if ( $user_ID ) {
 					<div class="form-group row">
 						<label for="jurusan" class="col-sm-2 col-form-label">Jurusan</label>
 						<div class="col-sm-10">
-							<select name="jurusan" id="jurusan" class="form-control">
+							<select name="jurusan" id="jurusan" class="form-control" required>
 								<option value="" selected disabled>Pilih Jurusan</option>
-								<option value="TM">Teknik Mesin</option>
-								<option value="TE">Teknik Elektro</option>
-								<option value="TI">Teknik Industri</option>
-								<option value="TIF">Teknik Informatika</option>
-								<option value="FKG">Teknik Informatika</option>
+								<option value="Teknik Mesin">Teknik Mesin</option>
+								<option value="Teknik Elektro">Teknik Elektro</option>
+								<option value="Teknik Industri">Teknik Industri</option>
+								<option value="Teknik Informatika">Teknik Informatika</option>
+								<option value="Sistem Informasi">Sistem Informasi</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="role_req" class="col-sm-2 col-form-label">Role</label>
 						<div class="col-sm-10">
-							<select name="role_req" id="role_req" class="form-control">
+							<select name="role_req" id="role_req" class="form-control" required>
 								<option value="" selected disabled>Pilih Peran Anda</option>
 								<option value="Dekan">Dekan</option>
 								<option value="Reviewer">Reviewer</option>
