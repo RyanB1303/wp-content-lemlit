@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 /**
  * The template for register page.
@@ -15,9 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 global $wpdb, $user_ID;
-if ( ! $user_ID ) {
+if ( $user_ID ) {
+	wp_safe_redirect( home_url( '/' ) );
+	exit;
+}
+
 	get_header();
-	?>
+?>
 
 <div id="primary" <?php generate_do_element_classes( 'content' ); ?>>
 	<main id="main" <?php generate_do_element_classes( 'main' ); ?>>
@@ -70,22 +73,24 @@ if ( ! $user_ID ) {
 					$password    = esc_attr( $_POST['password'] );
 					$user_desc   = "{$nama} - {$username} - {$role_select} : {$fakultas} - {$jurusan}";
 					$userbaru    = array(
-						'user_login'   => $username,
-						'display_name' => $nama,
-						'first_name'   => $nama,
-						'description'  => $user_desc,
-						'user_email'   => $useremail,
-						'user_pass'    => $password,
-						'user_role'    => 'subscriber',
+						'user_login'    => $username,
+						'display_name'  => $nama,
+						'user_nicename' => $nama,
+						'first_name'    => $nama,
+						'description'   => $user_desc,
+						'user_email'    => $useremail,
+						'user_pass'     => $password,
+						'role'          => 'subscriber',
 					);
 					$user_lemlit = wp_insert_user( $userbaru );
 					if ( ! is_wp_error( $user_lemlit ) ) {
 						add_user_meta( $user_lemlit, 'fakultas', $fakultas );
 						add_user_meta( $user_lemlit, 'jurusan', $jurusan );
 						add_user_meta( $user_lemlit, 'role_select', $role_select );
+						add_user_meta( $user_lemlit, 'role_status', 'Request' );
 						add_user_meta( $user_lemlit, 'telepon', $telepon );
 						add_user_meta( $user_lemlit, 'alamat', $alamat );
-						$curr_usr = get_user_by( 'id', $user_lemlit );
+						$curr_usr      = get_user_by( 'id', $user_lemlit );
 						$secure_cookie = is_ssl() ? true : false;
 						wp_set_auth_cookie( $user_lemlit, true, $secure_cookie );
 					}
@@ -205,8 +210,3 @@ if ( ! $user_ID ) {
 	do_action( 'generate_after_primary_content_area' );
 
 	get_footer();
-
-} else {
-			wp_safe_redirect( home_url() );
-			exit;
-}
