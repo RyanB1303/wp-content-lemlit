@@ -62,6 +62,7 @@ get_header();?>
 			<input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
 		  </div>
 		  <input type="submit" class="btn btn-primary" value="Login" name="login_lemlit"/>
+		  atau register<a href="<?php echo site_url( '/register' ); ?>"> disini</a>
 		</form>
 	  </div>
 	</div>

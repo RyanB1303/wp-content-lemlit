@@ -24,14 +24,99 @@ function wpse221640_back_button() {
 		echo esc_html( $button );
 	}
 }
+function get_user_role() {
+    global $current_user;
+
+    $user_roles = $current_user->roles;
+    $user_role = array_shift($user_roles);
+
+    return $user_role;
+}
+add_filter( 'wp_nav_menu_items', 'wti_loginout_menu_link', 10, 2 );
+/**
+ * Function wti_loginout_menu_link
+ *
+ * @param items $items items.
+ * @param args  $args arguments.
+ * @return $items
+ */
+function wti_loginout_menu_link( $items, $args ) {
+	if ( 'primary' === $args->theme_location ) {
+		if ( is_user_logged_in() ) {
+			global $current_user;
+			if ( in_array( 'administrator', $current_user->roles, true ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/create-role' ) . ' ">' . __( 'Create Role' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+			}
+			if ( in_array( 'peneliti', $current_user->roles, true ) || $current_user->has_cap( 'Peneliti' ) || $current_user->has_cap( 'peneliti' ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/penelitian-terakhir' ) . ' ">' . __( 'Penelitian Terakhir' ) . '</a></li>';
+			}
+			if ( in_array( 'drf', $current_user->roles, true ) || $current_user->has_cap( 'DRF' ) || $current_user->has_cap( 'drf' ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/pilih-reviewer' ) . ' ">' . __( 'Pilih Reviewer' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/nilai-drf' ) . ' ">' . __( 'Nilai DRF' ) . '</a></li>';
+			}
+			if ( in_array( 'reviewer', $current_user->roles, true ) || $current_user->has_cap( 'Reviewer' ) || $current_user->has_cap( 'reviewer' ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/nilai-reviewer' ) . ' ">' . __( 'Nilai Reviewer' ) . '</a></li>';
+			}
+			if ( in_array( 'dekan', $current_user->roles, true ) || $current_user->has_cap( 'Dekan' ) || $current_user->has_cap( 'dekan' ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/report' ) . ' ">' . __( 'Report' ) . '</a></li>';
+			}
+			if ( in_array( 'lemlit', $current_user->roles, true ) || $current_user->has_cap( 'Lemlit' ) || $current_user->has_cap( 'lemlit' ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/report' ) . ' ">' . __( 'Report' ) . '</a></li>';
+			}
+			if ( in_array( 'jurusan', $current_user->roles, true ) || $current_user->has_cap( 'Jurusan' ) || $current_user->has_cap( 'jurusan' ) ) {
+				$items .= '<li ><a href="' . site_url( '/profile' ) . ' ">' . __( 'Profile' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'Proposal' ) . '</a></li>';
+				$items .= '<li ><a href="' . site_url( '/proposal' ) . ' ">' . __( 'View Proposal' ) . '</a></li>'; // add archive page later.
+			}
+			$items .= '<li class="ml-5">' . get_user_role() . '</li>';
+			// $items .= '<li class="right">' . $current_user->user_nicename . '</li>';
+			$items .= '<li class="right"><a href="' . wp_logout_url( '/login' ) . '">' . __( 'Log Out' ) . '</a></li>';
+		} else {
+			$items .= '<li class="right"><a href="' . site_url( '/login' ) . '">' . __( 'Log In' ) . '</a></li>';
+		}
+	}
+	return $items;
+}
+
 /**
  * Function do_after_register
  *
  * @return void
  */
 function do_after_register() {
-	wp_redirect( home_url() );
+	wp_safe_redirect( home_url() );
 }
 add_action( 'user_register', 'do_after_register' );
 add_action( 'back_button', 'wpse221640_back_button' );
 add_action( 'wp_enqueue_scripts', 'get_bootstrap_css_js' );
+
+add_action(
+	'init',
+	function() {
+		add_role( 'peneliti', 'Peneliti' );
+		add_role( 'drf', 'DRF' );
+		add_role( 'reviewer', 'Reviewer' );
+		add_role( 'dekan', 'Dekan' );
+
+		$peneliti = get_role( 'peneliti' );
+		$reviewer = get_role( 'reviewer' );
+		$drf      = get_role( 'drf' );
+		$dekan    = get_role( 'dekan' );
+
+		$peneliti->add_cap( 'read' );
+		$drf->add_cap( 'read' );
+		$reviewer->add_cap( 'read' );
+	}
+);
