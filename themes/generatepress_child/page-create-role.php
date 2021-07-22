@@ -61,18 +61,13 @@ if ( ! in_array( 'administrator', $current_user->roles, true ) ) {
 				$user_query = get_users( array( 'role' => 'subscriber' ) );
 
 			if ( isset( $_POST['submit_role'] ) ) {
-				$user_selected      = isset ( $_POST['user_id'] ) ? wp_unslash( $_POST['user_id'] ) : '';
-				$user_selected_role = isset ( $_POST['user_role'] ) ? strtolower( wp_unslash( $_POST['user_role'] ) ) : '';
+				$user_selected      = isset( $_POST['user_id'] ) ? wp_unslash( $_POST['user_id'] ) : '';
+				$user_selected_role = isset( $_POST['user_role'] ) ? strtolower( wp_unslash( $_POST['user_role'] ) ) : '';
 
 				if ( ! empty( $user_selected_role ) ) {
 					$user_lemlit = get_user_by( 'id', $user_selected );
-					$user_lemlit->set_role( $user_selected_role );
-					$update_user = wp_update_user(
-						array(
-							'ID'   => $user_selected,
-							'role' => $user_selected_role,
-						)
-					);
+
+					$update_user = wp_update_user( $user_lemlit->set_role( $user_selected_role ) );
 					if ( ! is_wp_error( $update_user ) ) {
 						update_user_meta( $user_selected, 'role_status', 'Accepted' );
 						echo "<meta http-equiv='refresh' content='0'>";

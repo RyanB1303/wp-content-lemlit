@@ -90,8 +90,8 @@ if ( $user_ID ) {
 						add_user_meta( $user_lemlit, 'role_status', 'Request' );
 						add_user_meta( $user_lemlit, 'telepon', $telepon );
 						add_user_meta( $user_lemlit, 'alamat', $alamat );
-						redirect_to_login();
 					}
+					redirect_to_login();
 				}
 			}
 			?>

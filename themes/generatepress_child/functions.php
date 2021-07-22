@@ -25,7 +25,7 @@ function wpse221640_back_button() {
 }
 
 function redirect_to_login() {
-		echo '<meta http-equiv="refresh" content="0.5;url=' . esc_url( site_url( '/login' ) ) . '">';
+		echo '<meta http-equiv="refresh" content="1;url=' . esc_url( site_url( '/login' ) ) . '">';
 }
 
 function get_user_role() {
@@ -100,10 +100,14 @@ add_action( 'wp_enqueue_scripts', 'get_bootstrap_css_js' );
 add_action(
 	'init',
 	function() {
+		$peneliti_cap = get_role( 'contributor' )->capabilities;
+	
 		add_role( 'peneliti', 'Peneliti' );
 		add_role( 'drf', 'DRF' );
 		add_role( 'reviewer', 'Reviewer' );
 		add_role( 'dekan', 'Dekan' );
+		add_role( 'jurusan', 'Jurusan' );
+		add_role( 'lemlit', 'Lemlit' );
 
 		$peneliti = get_role( 'peneliti' );
 		$reviewer = get_role( 'reviewer' );
@@ -112,5 +116,6 @@ add_action(
 		$peneliti->add_cap( 'read' );
 		$drf->add_cap( 'read' );
 		$reviewer->add_cap( 'read' );
+		$dekan->add_cap( 'read' );
 	}
 );
