@@ -1,5 +1,4 @@
 <?php
-
 /**
  * GeneratePress child theme functions and definitions.
  *
@@ -24,13 +23,18 @@ function wpse221640_back_button() {
 		echo esc_html( $button );
 	}
 }
+
+function redirect_to_login() {
+		echo '<meta http-equiv="refresh" content="0.5;url=' . esc_url( site_url( '/login' ) ) . '">';
+}
+
 function get_user_role() {
-    global $current_user;
+	global $current_user;
 
-    $user_roles = $current_user->roles;
-    $user_role = array_shift($user_roles);
+	$user_roles = $current_user->roles;
+	$user_role  = array_shift( $user_roles );
 
-    return $user_role;
+	return $user_role;
 }
 add_filter( 'wp_nav_menu_items', 'wti_loginout_menu_link', 10, 2 );
 /**
@@ -90,15 +94,6 @@ function wti_loginout_menu_link( $items, $args ) {
 	return $items;
 }
 
-/**
- * Function do_after_register
- *
- * @return void
- */
-function do_after_register() {
-	wp_safe_redirect( home_url() );
-}
-add_action( 'user_register', 'do_after_register' );
 add_action( 'back_button', 'wpse221640_back_button' );
 add_action( 'wp_enqueue_scripts', 'get_bootstrap_css_js' );
 
@@ -114,7 +109,6 @@ add_action(
 		$reviewer = get_role( 'reviewer' );
 		$drf      = get_role( 'drf' );
 		$dekan    = get_role( 'dekan' );
-
 		$peneliti->add_cap( 'read' );
 		$drf->add_cap( 'read' );
 		$reviewer->add_cap( 'read' );

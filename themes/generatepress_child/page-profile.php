@@ -62,9 +62,15 @@ get_header(); ?>
 	  <div class="entry-content">
 		<form>
 		  <div class="form-group row">
-			<label for="nip" class="col-sm-2 col-form-label">nip</label>
+			<label for="nip" class="col-sm-2 col-form-label">NIP</label>
 			<div class="col-sm-10">
 			  <input type="text" class="form-control" id="nip" value="<?php echo esc_html( $current_user->user_login ); ?>" disabled>
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label for="nama" class="col-sm-2 col-form-label">Nama</label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" id="nama" value="<?php echo esc_html( $current_user->user_nicename ); ?>" disabled>
 			</div>
 		  </div>
 		  <!-- <div class="form-group row">
@@ -76,7 +82,7 @@ get_header(); ?>
 		  <div class="form-group row">
 			<label for="role" class="col-sm-2 col-form-label">Role</label>
 			<div class="col-sm-10">
-			  <input type="text" class="form-control" id="role" value="<?php echo esc_html( get_user_meta( $current_user->ID, 'role_select', true ) ); ?>" disabled >
+			  <input type="text" class="form-control" id="role" value="<?php echo esc_html( get_user_role() ); ?>" disabled >
 			</div>
 		  </div>
 		  <div class="form-group row">

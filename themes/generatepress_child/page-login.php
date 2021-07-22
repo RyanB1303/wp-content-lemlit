@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php
-
 /**
  * The template for login page.
  *

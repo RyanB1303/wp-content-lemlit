@@ -90,9 +90,7 @@ if ( $user_ID ) {
 						add_user_meta( $user_lemlit, 'role_status', 'Request' );
 						add_user_meta( $user_lemlit, 'telepon', $telepon );
 						add_user_meta( $user_lemlit, 'alamat', $alamat );
-						$curr_usr      = get_user_by( 'id', $user_lemlit );
-						$secure_cookie = is_ssl() ? true : false;
-						wp_set_auth_cookie( $user_lemlit, true, $secure_cookie );
+						redirect_to_login();
 					}
 				}
 			}
@@ -126,8 +124,6 @@ if ( $user_ID ) {
 							<select name="fakultas" id="fakultas" class="form-control" required>
 								<option value="" selected disabled>Pilih Fakultas</option>
 								<option value="FTI">FTI</option>
-								<option value="FH">FH</option>
-								<option value="FKG">FKG</option>
 							</select>
 						</div>
 					</div>
@@ -149,9 +145,12 @@ if ( $user_ID ) {
 						<div class="col-sm-10">
 							<select name="role_req" id="role_req" class="form-control" required>
 								<option value="" selected disabled>Pilih Peran Anda</option>
-								<option value="Dekan">Dekan</option>
-								<option value="Reviewer">Reviewer</option>
 								<option value="Peneliti">Peneliti</option>
+								<option value="Reviewer">Reviewer</option>
+								<option value="Dekan">Dekan</option>
+								<option value="Drf">Drf</option>
+								<option value="Lemlit">Lemlit</option>
+								<option value="Jurusan">Jurusan</option>
 							</select>
 						</div>
 					</div>
