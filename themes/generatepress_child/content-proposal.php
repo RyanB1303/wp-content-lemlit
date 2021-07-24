@@ -15,7 +15,6 @@ if (!defined('ABSPATH')) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> <?php generate_do_microdata('article'); ?>>
     <?php do_action('back_button'); ?>
     <div class="inside-article">
-        <h4 style="color: red;" class="alert alert-danger">Contoh Halaman View Proposal</h4>
         <?php
         /**
          * generate_before_content hook.
@@ -51,6 +50,7 @@ if (!defined('ABSPATH')) {
                  * @hooked generate_post_meta - 10
                  */
                 do_action('generate_after_entry_title');
+                echo "oleh <b>" . get_the_author() . "</b>";
                 ?>
             </header>
         <?php
@@ -64,26 +64,43 @@ if (!defined('ABSPATH')) {
          * @hooked generate_post_image - 10
          */
         do_action('generate_after_entry_header');
-
         $itemprop = '';
 
         if ('microdata' === generate_get_schema_type()) {
             $itemprop = ' itemprop="text"';
         }
+        global $post;
+        $proposal = get_post($post->ID);
         ?>
 
-        <div class="entry-content" <?php echo $itemprop; // phpcs:ignore -- No escaping needed. 
-                                    ?>>
-            <?php
-            the_content(); // main content
+        <div class="entry-content" <?php echo $itemprop; ?>>
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th><label for="judul_proposal">Judul Proposal</label></th>
+                    <td><?php echo esc_html($proposal->post_title) ?></td>
 
-            wp_link_pages(
-                array(
-                    'before' => '<div class="page-links">' . __('Pages:', 'generatepress'),
-                    'after'  => '</div>',
-                )
-            );
-            ?>
+                </tr>
+                <tr>
+                    <th><label for="kategori_proposal">Kategori Proposal</label></th>
+                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_kategori', true)) ?></td>
+                </tr>
+                <tr>
+                    <th><label for="nama_ketua">Ketua Penelitian</label></th>
+                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_judul', true)) ?></td>
+                </tr>
+                <tr>
+                    <th><label for="prodi_ketua">Prodi</label></th>
+                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_prodi', true)) ?></td>
+                </tr>
+                <tr>
+                    <th><label for="dana_proposal">Dana Proposal</label></th>
+                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_dana', true)) ?></td>
+                </tr>
+                <tr>
+                    <th><label for="data_dukung_proposal">Data Dukung SK Rektor</label></th>
+                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_data_dukung', true)) ?></td>
+                </tr>
+            </table>
         </div>
 
         <?php
