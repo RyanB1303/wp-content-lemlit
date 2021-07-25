@@ -119,6 +119,12 @@ class proposal_post_editor
 		if (array_key_exists('data_dukung_proposal', $_POST)) {
 			update_post_meta($post_id, 'proposal_data_dukung', $_POST['data_dukung_proposal']);
 		}
+		if (array_key_exists('status_proposal', $_POST)) {
+			update_post_meta($post_id, 'proposal_status', $_POST['status_proposal']);
+		}
+		if (array_key_exists('status_pencairan_dana', $_POST)) {
+			update_post_meta($post_id, 'proposal_pencairan_dana', $_POST['status_pencairan_dana']);
+		}
 	}
 	public function proposal_editor_html()
 	{
@@ -126,16 +132,24 @@ class proposal_post_editor
 		global $current_user;
 ?>
 		<table class="form-table" role="presentation">
+			<input type="hidden" name="status_proposal" value="menunggu review">
+			<input type="hidden" name="status_pencairan_dana" value=" - ">
 			<tr>
 				<th><label for="judul_proposal">Judul Proposal</label></th>
 				<td><input type="text" name="judul_proposal" id="judul_proposal" value="" class="regular-text" /></td>
 				<th><label for="nama_ketua">Ketua Penelitian</label></th>
 				<td><input type="text" name="nama_ketua" id="nama_ketua" value="<?php echo esc_html($current_user->display_name); ?>" class="regular-text" /></td>
-
 			</tr>
 			<tr>
 				<th><label for="kategori_proposal">Kategori Proposal</label></th>
-				<td><input type="text" name="kategori_proposal" id="kategori_proposal" class="regular-text" /></td>
+				<td>
+					<select name="kategori_proposal" id="kategori_proposaol">
+						<option value="Kategori I">Kategori I</option>
+						<option value="Kategori II">Kategori II</option>
+						<option value="Kategori III">Kategori III</option>
+						<option value="Kategori IV">Kategori IV</option>
+					</select>
+				</td>
 				<th><label for="prodi_ketua">Prodi</label></th>
 				<td><input type="text" name="prodi_ketua" id="prodi_ketua" value="<?php echo esc_html(get_user_meta($current_user->ID, 'jurusan', true)); ?>" class="regular-text" /></td>
 

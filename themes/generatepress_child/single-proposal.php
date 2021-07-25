@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The Template for displaying all single posts.
  *
@@ -49,6 +50,5 @@ get_header(); ?>
  */
 do_action('generate_after_primary_content_area');
 
-generate_construct_sidebars();
 
 get_footer();

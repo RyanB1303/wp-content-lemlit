@@ -71,23 +71,37 @@ get_header(); ?>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Pri Agung Rakhmanto</td>
-              <td>S1 - SI</td>
-              <td>Kategori IV</td>
-              <td>Effect of Sand Grain Size on Spontaneous Imbibiton of Surfactant Solution</td>
-              <td>Tahap I</td>
-              <td>LPJ Tahap I</td>
-              <td>30 Desember 2020</td>
-              <td>
-                <div class="flex">
-                  <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                  <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                  <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
-              </td>
-            </tr>
+            <?php
+            global $current_user, $wp_query;
+            if (!current_user_can('delete_plugins')) {
+              $args = array(
+                'post_type' => 'proposal',
+                'post_status' => 'publish',
+                'author' => $current_user->ID,
+              );
+              $wp_query = new WP_Query($args);
+            }
+            if (have_posts()) : while (have_posts()) : the_post();  ?>
+                <tr id="proposal- <?php the_ID(); ?>" <?php post_class() ?>>
+                  <td>1</td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_ketua', true)) ?></td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_prodi', true)) ?></td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_kategori', true)) ?></td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_judul', true)) ?></td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_pencairan_dana', true)) ?></td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_status', true)) ?></td>
+                  <td><?php echo esc_html(get_post_meta(get_the_ID(), 'proposal_data_dukung', true)) ?></td>
+                  <td>
+                    <div class="flex">
+                      <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    </div>
+                  </td>
+                </tr>
+            <?php endwhile;
+            endif;
+            ?>
           </tbody>
         </table>
       </div>
@@ -110,7 +124,5 @@ get_header(); ?>
  * @since 2.0
  */
 do_action('generate_after_primary_content_area');
-
-generate_construct_sidebars();
 
 get_footer();
