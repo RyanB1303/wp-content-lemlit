@@ -86,7 +86,7 @@ if (!defined('ABSPATH')) {
                 </tr>
                 <tr>
                     <th><label for="nama_ketua">Ketua Penelitian</label></th>
-                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_judul', true)) ?></td>
+                    <td><?php echo esc_html(get_post_meta($post->ID, 'proposal_ketua', true)) ?></td>
                 </tr>
                 <tr>
                     <th><label for="prodi_ketua">Prodi</label></th>
