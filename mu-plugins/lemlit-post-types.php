@@ -129,14 +129,23 @@ class proposal_post_editor
 	public function proposal_editor_html()
 	{
 
-		global $current_user;
+		global $current_user, $post;
+		$id = $post->ID;
+		if ($id) {
+			$output_judul = stripslashes(get_post_meta($id, 'proposal_judul', true));
+			$output_ketua = stripslashes(get_post_meta($id, 'proposal_ketua', true));
+			$output_prodi = stripslashes(get_post_meta($id, 'proposal_prodi', true));
+			$output_kategori = stripslashes(get_post_meta($id, 'proposal_kategori', true));
+			$output_dana = stripslashes(get_post_meta($id, 'proposal_dana', true));
+			$output_data_dukung = stripslashes(get_post_meta($id, 'proposal_data_dukung', true));
+		}
 ?>
 		<table class="form-table" role="presentation">
 			<input type="hidden" name="status_proposal" value="menunggu review">
 			<input type="hidden" name="status_pencairan_dana" value=" - ">
 			<tr>
 				<th><label for="judul_proposal">Judul Proposal</label></th>
-				<td><input type="text" name="judul_proposal" id="judul_proposal" value="" class="regular-text" /></td>
+				<td><input type="text" name="judul_proposal" id="judul_proposal" value="<?php echo esc_html($output_judul) ?>" class="regular-text" /></td>
 				<th><label for="nama_ketua">Ketua Penelitian</label></th>
 				<td><input type="text" name="nama_ketua" id="nama_ketua" value="<?php echo esc_html($current_user->display_name); ?>" class="regular-text" /></td>
 			</tr>
@@ -144,6 +153,9 @@ class proposal_post_editor
 				<th><label for="kategori_proposal">Kategori Proposal</label></th>
 				<td>
 					<select name="kategori_proposal" id="kategori_proposaol">
+						<?php if ($output_kategori) { ?>
+							<option value="<?php echo $output_kategori ?>" selected disabled hidden><?php echo esc_html($output_kategori) ?></option>
+						<?php } ?>
 						<option value="Kategori I">Kategori I</option>
 						<option value="Kategori II">Kategori II</option>
 						<option value="Kategori III">Kategori III</option>
@@ -151,12 +163,13 @@ class proposal_post_editor
 					</select>
 				</td>
 				<th><label for="prodi_ketua">Prodi</label></th>
-				<td><input type="text" name="prodi_ketua" id="prodi_ketua" value="<?php echo esc_html(get_user_meta($current_user->ID, 'jurusan', true)); ?>" class="regular-text" /></td>
-
+				<td><input type="text" name="prodi_ketua" id="prodi_ketua" value="<?php if ($output_prodi) {
+																						echo ($output_prodi);
+																					} else echo esc_html(get_user_meta($current_user->ID, 'jurusan', true)); ?>" class="regular-text" /></td>
 			</tr>
 			<tr>
 				<th><label for="dana_proposal">Dana Proposal</label></th>
-				<td><input type="number" min="0" step="50000" name="dana_proposal" id="dana_proposal" class="regular-text" /></td>
+				<td><input type="number" min="0" step="50000" name="dana_proposal" id="dana_proposal" class="regular-text" value="" /></td>
 			</tr>
 			<tr>
 				<th><label for="data_dukung_proposal">Data Dukung SK Rektor</label></th>

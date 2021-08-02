@@ -2,3 +2,5 @@
 /upgrade
 .vscode
 /plugins
+*
+!/themes

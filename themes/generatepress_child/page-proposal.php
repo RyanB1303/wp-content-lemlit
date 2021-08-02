@@ -73,14 +73,20 @@ get_header(); ?>
           <tbody>
             <?php
             global $current_user, $wp_query;
+            $allowed_roles = array('administrator');
+            if (array_intersect($allowed_roles, $current_user->roles)) {
+              $args = array(
+                'post_type' => 'proposal',
+              );
+            }
             if (!current_user_can('delete_plugins')) {
               $args = array(
                 'post_type' => 'proposal',
                 'post_status' => 'publish',
                 'author' => $current_user->ID,
               );
-              $wp_query = new WP_Query($args);
             }
+            $wp_query = new WP_Query($args);
             if (have_posts()) : while (have_posts()) : the_post();  ?>
                 <tr id="proposal- <?php the_ID(); ?>" <?php post_class() ?>>
                   <td>1</td>
